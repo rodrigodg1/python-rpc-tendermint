@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from info_cosmwasm import *
+from api import *
 
 validators = get_validators()
 genesis = get_genesis()
