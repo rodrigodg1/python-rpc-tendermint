@@ -35,7 +35,6 @@ def update_info():
         list_net_info.append(i.get("remote_ip"))
         
     
-    
     return validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info
 
 

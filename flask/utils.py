@@ -9,7 +9,7 @@ class APIException(Exception):
         self.code = code
 
 #RPC Address
-BASE_URL = "https://rpc.musselnet.cosmwasm.com"
+BASE_URL = "https://rpc.heldernet.cosmwasm.com"
 TIMEOUT = 10
 
 
