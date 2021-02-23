@@ -1,9 +1,3 @@
-"""This module corresponds to functionality documented
-at https://blockchain.info/api/charts_api
-
-"""
-
-
 
 import json
 import sys
