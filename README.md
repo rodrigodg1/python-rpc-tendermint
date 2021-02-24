@@ -1,4 +1,4 @@
-# Python Query RPC - Client
+# Python Query RPC Tendermint - Client
 Query rpc with python code
 
 * You need to change RPC Server Address in utils.py
