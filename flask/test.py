@@ -9,6 +9,10 @@ height_last_block = last_block.get("block").get("header").get("height")
 hash_last_block = last_block.get("block_id").get("hash")
 
 
+transactions_last_block = last_block.get("block").get("data")
+
+
+
 #specific_block = get_block(96437)
 
 #not confirmed transactions

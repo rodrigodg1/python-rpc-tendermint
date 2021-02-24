@@ -18,6 +18,10 @@ def update_info():
     proposer_address = last_block.get("block").get("header").get("proposer_address")
 
 
+    transactions_last_block = last_block.get("block").get("data")
+    
+    signatures_last_block = last_block.get("block").get("last_commit").get("signatures")
+
     #not confirmed transactions
     unconfirmed_txs = get_unconfirmed_txs()
     
@@ -27,28 +31,44 @@ def update_info():
     #network info
     net_info = get_net_info()
     list_net_info = []
+    
+    
+    network_name = net_info[0].get("node_info").get("network")
+    
 
     for i in net_info:
         #print(i.get("node_info").get("moniker"), i.get("remote_ip"))
         
+        #tuple with moniker, ip addr and ID
+        #list_net_info.append((i.get("node_info").get("moniker"), i.get("remote_ip"), i.get("node_info").get("id")))
+
+        
+        #tuple with moniker and ip addr
+        
+        list_net_info.append((i.get("node_info").get("moniker"), i.get("remote_ip")))
+        
         #only network address
-        list_net_info.append(i.get("remote_ip"))
+        #list_net_info.append(i.get("remote_ip"))
         
     
-    return validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info
+    return validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info,transactions_last_block,signatures_last_block,network_name
 
 
 
 @app.route('/')
 def index():
+    platform = "CosmWasm"
          
-    validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info = update_info()
+    validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info,transactions_last_block,signatures_last_block,network_name = update_info()
     
-    return render_template('index.html',titulo="CosmWasm Explorer",
+    return render_template('index.html',titulo="Tendermint RPC Explorer",
                             validators= len(validators),height = height_last_block,
                             unconfirmed_txs = unconfirmed_txs,time_last_block = time_last_block,
                             proposer_address = proposer_address,hash_last_block=hash_last_block,
-                            list_net_info = list_net_info)
+                            list_net_info = list_net_info,
+                            transactions_last_block = transactions_last_block,
+                            signatures_last_block = signatures_last_block,
+                            network_name = network_name,platform = platform)
 
 @app.route('/info')
 def info():
