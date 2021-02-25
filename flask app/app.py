@@ -18,8 +18,10 @@ def update_info():
     proposer_address = last_block.get("block").get("header").get("proposer_address")
 
 
+    #get transactions from the latest block
     transactions_last_block = last_block.get("block").get("data")
     
+    #get signatures from the latest block
     signatures_last_block = last_block.get("block").get("last_commit").get("signatures")
 
     #not confirmed transactions
@@ -33,6 +35,7 @@ def update_info():
     list_net_info = []
     
     
+    #network name id
     network_name = net_info[0].get("node_info").get("network")
     
 

@@ -22,7 +22,6 @@ def get_block(height=None,api_code=None):
 
 def get_net_info(api_code=None):
     
-    
     resource = '/net_info'
     if api_code is not None:
         resource += '&api_code=' + api_code
@@ -38,15 +37,8 @@ def get_net_info(api_code=None):
 
 
 
-
-
-
-
-
-
 def get_genesis(api_code=None):
-    
-    
+     
     resource = '/genesis'
     if api_code is not None:
         resource += '&api_code=' + api_code
@@ -60,8 +52,8 @@ def get_genesis(api_code=None):
     return json_response
 
 
+
 def get_last_block(api_code=None):
-    
     
     resource = '/block'
     if api_code is not None:
@@ -73,10 +65,6 @@ def get_last_block(api_code=None):
     json_response = json.loads(response)
     json_response = json_response.get("result")
     return json_response
-
-
-
-
 
 
 
@@ -96,7 +84,6 @@ def get_block_by_hash(hash,api_code=None):
 
 
 def get_unconfirmed_txs(api_code=None):
-    
     
     resource = '/num_unconfirmed_txs'
     if api_code is not None:
@@ -136,8 +123,7 @@ def get_blockchain(min=None,max=None,api_code=None):
 
 
 def get_validators(api_code=None):
-    
-    
+      
     resource = '/validators'
     if api_code is not None:
         resource += '&api_code=' + api_code
