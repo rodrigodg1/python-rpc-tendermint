@@ -22,7 +22,17 @@ from api import *
 # block_by_hash = get_block_by_hash(hash_last_block)
 
 
-teste = get_net_info()
+# teste = get_net_info()
 
-for i in teste:
-    print(i.get("node_info").get("moniker"), i.get("remote_ip"))
+# for i in teste:
+#     print(i.get("node_info").get("moniker"), i.get("remote_ip"))
+
+
+#last_block_size = get_blockchain()[0].get("block_size")
+#last_block_height = get_blockchain()[0].get("header").get("height")
+last_block = get_last_block()
+
+time_last_block = last_block.get("block").get("header").get("time")
+
+
+string_spplited = time_last_block.split('T',1)

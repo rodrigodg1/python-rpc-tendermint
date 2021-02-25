@@ -9,14 +9,28 @@ from api import *
 
 
 def update_info():
+    #update amount validators
     validators = get_validators()
     #genesis = get_genesis()
+    
+    #get info about last block commited
     last_block = get_last_block()
     height_last_block = last_block.get("block").get("header").get("height")
     hash_last_block = last_block.get("block_id").get("hash")
     time_last_block = last_block.get("block").get("header").get("time")
+    #split timestamp date and hour
+    time_last_block = time_last_block.split('T',1)
+    #split hour
+    time_last_block_hour = time_last_block[1].split('.',1)
+    #data and hour only
+    time_last_block[1] = time_last_block_hour[0]
+    
+    #block proposer ID
     proposer_address = last_block.get("block").get("header").get("proposer_address")
-
+    
+    last_block_size = get_blockchain()[0].get("block_size")
+    
+    last_block_height = get_blockchain()[0].get("header").get("height")
 
     #get transactions from the latest block
     transactions_last_block = last_block.get("block").get("data")
@@ -54,7 +68,10 @@ def update_info():
         #list_net_info.append(i.get("remote_ip"))
         
     
-    return validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info,transactions_last_block,signatures_last_block,network_name
+    return validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info,transactions_last_block,signatures_last_block,network_name,last_block_size,last_block_height
+
+
+
 
 
 
@@ -62,7 +79,7 @@ def update_info():
 def index():
     platform = "CosmWasm"
          
-    validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info,transactions_last_block,signatures_last_block,network_name = update_info()
+    validators,height_last_block,unconfirmed_txs,time_last_block,proposer_address,hash_last_block,list_net_info,transactions_last_block,signatures_last_block,network_name,last_block_size,last_block_height = update_info()
     
     return render_template('index.html',titulo="Tendermint RPC Explorer",
                             validators= len(validators),height = height_last_block,
@@ -71,11 +88,17 @@ def index():
                             list_net_info = list_net_info,
                             transactions_last_block = transactions_last_block,
                             signatures_last_block = signatures_last_block,
-                            network_name = network_name,platform = platform)
+                            network_name = network_name,platform = platform,
+                            last_block_size = last_block_size,
+                            last_block_height = last_block_height)
 
-@app.route('/info')
-def info():
 
-    return render_template('index.html', validators= len(validators),height = height_last_block)
+
+
+
+
+
+
+
 
 app.run(host='0.0.0.0',debug=True)
